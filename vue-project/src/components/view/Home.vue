@@ -7,6 +7,7 @@
         Connectez-vous pour découvrir toutes ses fonctionnalités !
       </p>
       <router-link to="/login" class="cta-button">Connecte-toi</router-link>
+      <router-link to="/register" class="cta-button">Inscris toi</router-link>
     </section>
 
     <section class="features">
@@ -74,6 +75,7 @@ export default {
 }
 
 .cta-button {
+  margin : 0.25rem;
   display: inline-block;
   padding: 10px 20px;
   background-color: #007bff;
