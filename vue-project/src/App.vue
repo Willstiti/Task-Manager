@@ -14,3 +14,5 @@ export default {
   name: 'App',
 };
 </script>
+
+<style>@import 'components/style/global.css';</style>
