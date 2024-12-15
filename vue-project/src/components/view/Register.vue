@@ -97,8 +97,8 @@
         const data = await response.json();
         console.log('Utilisateur enregistré :', data);
 
-        // Redirige vers la page de login après l'inscription
-        this.$router.push('/Login');
+        // Redirige vers la page du dashboard après l'inscription
+        this.$router.push('/dashboard');
       } catch (error) {
         // Gestion des erreurs liés à l'API
         this.errorMessage = error.message || 'Erreur lors de l’envoi des données.';
