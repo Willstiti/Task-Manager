@@ -3,6 +3,7 @@ import Home from '../view/Home.vue';
 import Login from '../view/Login.vue';
 import Register from '../view/Register.vue';
 import Dashboard from '../view/Dashboard.vue';
+import AddTask from '../view/AddTask.vue';
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/dashboard',  // Nouvelle route pour le tableau de bord
     name: 'DashboardVue',
     component: Dashboard,
+  },
+  {
+    path: '/addtask',  // Nouvelle route pour le tableau de bord
+    name: 'AddTask',
+    component: AddTask,
   },
 ];
 // Création du routeur
