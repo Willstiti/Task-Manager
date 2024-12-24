@@ -22,11 +22,11 @@ class Task
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column]
-    private ?int $status = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255)]
     private ?string $priority = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $status = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $createdAt = null;
@@ -76,12 +76,12 @@ class Task
         return $this;
     }
 
-    public function getStatus(): ?int
+    public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    public function setStatus(int $status): static
+    public function setStatus(?string $status): static
     {
         $this->status = $status;
 
