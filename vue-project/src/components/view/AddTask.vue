@@ -51,15 +51,6 @@
             </select>
         </div>
         
-        <div class="form-group">
-            <label for="date">Date</label>
-            <input
-            type="date"
-            id="date"
-            v-model="selectedDate"
-            required
-            />
-        </div>
         <button type="submit">Ajouter</button>
   
         <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
@@ -80,11 +71,16 @@
       description: '',
       status: 'todo',
       priority: 'osef',
-      selectedDate: '',
+      selectedDate: this.currentDate(),                  
       errorMessage: ''
     };
   },
   methods: {
+    currentDate() {
+      const current = new Date();
+      const date = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;      
+      return date;
+    },
     async handleTaskRegister() {
       try {
         // Appel à l'API avec `fetch`
