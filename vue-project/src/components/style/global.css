@@ -200,3 +200,6 @@ table td {
   margin-bottom : 10px;
   background-color: red;
 }
+.delete_task:hover{
+ background-color: rgb(153, 3, 3);
+}

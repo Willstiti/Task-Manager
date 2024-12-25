@@ -1,7 +1,7 @@
 <template>
     <div class="container">
       <h1>Modification des Tâches</h1>
-      <button class="delete_task" type="submit">Supprimer la tâche</button>
+      <button class="delete_task" @click="deleteTask">Supprimer la tâche</button>
 
       <form @submit.prevent="handleTaskUpdate">
 
@@ -58,7 +58,7 @@
   
       <!-- Lien pour retourner à l'accueil -->
       <div class="back-to-home">
-        <router-link to="/">Retour à l'accueil</router-link>
+        <router-link to="/dashboard">Retour au Dashboard</router-link>
       </div>
     </div>
   </template>
@@ -117,7 +117,7 @@
 
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData['hydra:description'] || 'Erreur lors de la mise à jour de la tâche.');
+          throw new Error(errorData['description'] || 'Erreur lors de la mise à jour de la tâche.');
         }
 
         this.$router.push('/dashboard'); // Redirection vers le tableau de bord après mise à jour
@@ -126,7 +126,33 @@
         console.error(error);
       }
     },
+  
+  async deleteTask() {
+    console.log('deleteTask appelé'); // Vérifiez que cette ligne est affichée
+      const taskId = this.$route.params.id; // Récupérer l'ID de la tâche depuis l'URL
+      const confirmDelete = window.confirm('Êtes-vous sûr de vouloir supprimer cette tâche ?');
+      if (!confirmDelete) return;
+
+      try {
+        const response = await fetch(`http://localhost:8000/api/tasks/${taskId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/ld+json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Erreur lors de la suppression de la tâche.');
+        }
+
+        alert('Tâche supprimée avec succès.');
+        this.$router.push('/dashboard'); // Rediriger vers le tableau de bord après suppression
+      } catch (error) {
+        this.errorMessage = error.message || 'Erreur inconnue.';
+        console.error(error);
+      }
   },
+},
   mounted() {
     this.fetchTask(); // Charger les données de la tâche au montage
   },
