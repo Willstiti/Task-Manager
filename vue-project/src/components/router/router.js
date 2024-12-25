@@ -4,6 +4,7 @@ import Login from '../view/Login.vue';
 import Register from '../view/Register.vue';
 import Dashboard from '../view/Dashboard.vue';
 import AddTask from '../view/AddTask.vue';
+import EditTask from '../view/EditTask.vue'
 
 const routes = [
   {
@@ -27,9 +28,14 @@ const routes = [
     component: Dashboard,
   },
   {
-    path: '/addtask',  // Nouvelle route pour le tableau de bord
+    path: '/addtask',  // Nouvelle route pour l'ajout des tâches
     name: 'AddTask',
     component: AddTask,
+  },
+  {
+    path: '/edittask/:id',  // Route dynamique avec ID
+    name: 'EditTask',
+    component : EditTask,
   },
 ];
 // Création du routeur
