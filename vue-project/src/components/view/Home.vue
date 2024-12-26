@@ -21,17 +21,13 @@
           <h3>Suivi des projets</h3>
           <p>Gérez vos projets de A à Z avec une vue d'ensemble complète.</p>
         </div>
-        <div class="feature-item">
-          <h3>Notifications en direct</h3>
-          <p>Recevez des mises à jour instantanées pour rester informé à tout moment.</p>
-        </div>
       </div>
     </section>
 
     <section class="about">
       <h2>À propos de l'application</h2>
       <p>
-        Cette application a été conçue pour vous offrir une expérience utilisateur fluide et agréable,
+        Cette application a été conçue pour vous offrir une expérience utilisateur fluide et simpliste,
         tout en répondant à vos besoins de gestion personnelle ou professionnelle.
       </p>
     </section>
@@ -40,6 +36,5 @@
 
 <script>
 export default {
-  name: 'HomeVue',
 };
 </script>
