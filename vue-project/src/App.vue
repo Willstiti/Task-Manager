@@ -5,7 +5,7 @@
 
       </nav>
     </header>
-      <router-view /> <!-- Vue.js affichera ici le contenu du composant selon la route -->
+      <router-view /> <!-- Affiche la Vue selon la route utilisé-->
   </div>
 </template>
 

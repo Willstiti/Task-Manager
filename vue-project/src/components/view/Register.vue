@@ -53,7 +53,6 @@
         <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
       </form>
   
-      <!-- Lien pour retourner à l'accueil -->
       <div class="back-to-home">
         <router-link to="/">Retour à l'accueil</router-link>
       </div>
@@ -93,7 +92,7 @@
           const errorData = await response.json();
           throw new Error(errorData['hydra:description'] || 'Une erreur est survenue.');
         }
-
+        
         const data = await response.json();
         console.log('Utilisateur enregistré :', data);
 

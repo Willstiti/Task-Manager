@@ -54,9 +54,6 @@
   
         <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
       </form>
-
-  
-      <!-- Lien pour retourner à l'accueil -->
       <div class="back-to-home">
         <router-link to="/dashboard">Retour au Dashboard</router-link>
       </div>
@@ -102,7 +99,7 @@
       } catch (error) {
         this.errorMessage = error.message || 'Erreur inconnue.';
         console.error(error);
-      }
+      } 
     },
     async handleTaskUpdate() {
       const taskId = this.$route.params.id; // Récupérer l'ID de la tâche depuis l'URL
@@ -128,12 +125,12 @@
     },
   
   async deleteTask() {
-    console.log('deleteTask appelé'); // Vérifiez que cette ligne est affichée
       const taskId = this.$route.params.id; // Récupérer l'ID de la tâche depuis l'URL
       const confirmDelete = window.confirm('Êtes-vous sûr de vouloir supprimer cette tâche ?');
       if (!confirmDelete) return;
 
       try {
+        // Requête de Type Delete à l'API
         const response = await fetch(`http://localhost:8000/api/tasks/${taskId}`, {
           method: 'DELETE',
           headers: {
@@ -154,7 +151,7 @@
   },
 },
   mounted() {
-    this.fetchTask(); // Charger les données de la tâche au montage
+    this.fetchTask(); // Charger les données de la tâche au chargement de la page
   },
 };
 

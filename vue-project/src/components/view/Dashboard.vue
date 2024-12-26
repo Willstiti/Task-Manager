@@ -3,7 +3,6 @@
     <h1>Bienvenue sur le tableau de bord</h1>
     <router-link to="/addtask">Ajouter une tâche</router-link>
 
-    <!-- Affichage des tâches triées -->
     <div class="task-status-cards">
       <div v-for="status in taskStatus" :key="status.value" class="status-card">
         <h2>{{ status.label }}</h2>
@@ -40,7 +39,7 @@ export default {
   name: 'DashboardVue',
   data() {
     return {
-      tasks: [], // Stocker les tâches
+      tasks: [], // Tableau pour stocker les tâches
       errorMessage: '',
       taskStatus: [
         { value: 'todo', label: 'À faire' },
@@ -52,7 +51,7 @@ export default {
   methods: {
     async fetchTasks() {
       try {
-        // Appel à l'API pour récupérer les tâches de l'utilisateur 9
+        // Appel à l'API pour récupérer les tâches de l'utilisateur (9 ici, attente de Clément)
         const response = await fetch('http://localhost:8000/api/tasks?user.id=9', {
           method: 'GET',
           headers: {
@@ -73,7 +72,7 @@ export default {
       }
     },
     getTasksByStatus(status) {
-      // Retourne les tâches triées par priorité pour un statut donné
+      // Retourne les tâches triées par priorité
       const priorityOrder = ['hight', 'middle', 'low', 'osef'];
       return this.tasks
         .filter((task) => task.status === status)
@@ -83,7 +82,7 @@ export default {
     },
   },
   mounted() {
-    this.fetchTasks(); // Récupérer les tâches lors du montage du composant
+    this.fetchTasks();
   },
 };
 </script>
