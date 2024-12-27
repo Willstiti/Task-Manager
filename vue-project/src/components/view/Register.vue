@@ -58,9 +58,10 @@
       </div>
     </div>
   </template>
-  
+
   <script>
   export default {
+    name: 'RegisterVue',
   data() {
     return {
       prenom: '',
