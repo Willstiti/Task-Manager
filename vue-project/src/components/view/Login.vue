@@ -30,7 +30,6 @@
       <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
     </form>
 
-    <!-- Lien pour retourner à l'accueil -->
     <div class="back-to-home">
       <router-link to="/">Retour à l'accueil</router-link>
     </div>
@@ -42,23 +41,45 @@ export default {
   name: 'LoginVue',
   data() {
     return {
-      email: '',        // Email saisi par l'utilisateur
-      password: '',     // Mot de passe saisi par l'utilisateur
-      errorMessage: '', // Message d'erreur affiché en cas de problème
+      email: '',
+      password: '',
+      errorMessage: '',
     };
   },
   methods: {
-    handleLogin() {
-      if (!this.email || !this.password) {
-        this.errorMessage = 'Veuillez remplir tous les champs.';
-        return;
-      }
+    async handleLogin() {
+      try {
+        if (!this.email || !this.password) {
+          this.errorMessage = 'Veuillez remplir tous les champs.';
+          return;
+        }
 
-      if (this.email === 'admin@example.com' && this.password === 'password123') {
-        this.errorMessage = '';
-        this.$router.push('/dashboard'); // Redirection vers la page "dashboard"
-      } else {
-        this.errorMessage = 'Adresse e-mail ou mot de passe incorrect.';
+        const response = await fetch('http://127.0.0.1:8000/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: this.email,
+            password: this.password,
+          }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.message === 'Connexion réussie !') {
+            this.errorMessage = '';
+            this.$router.push('/dashboard');
+          } else {
+            this.errorMessage = 'Une erreur inattendue est survenue.';
+          }
+        } else {
+          const errorData = await response.json();
+          this.errorMessage = errorData.error || 'Adresse e-mail ou mot de passe incorrect.';
+        }
+        // eslint-disable-next-line no-unused-vars
+      } catch (error) {
+        this.errorMessage = 'Une erreur inattendue est survenue.';
       }
     },
   },
