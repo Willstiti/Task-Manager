@@ -1,7 +1,7 @@
 <template>
     <div class="container">
       <h1>Ajout des Tâches</h1>
-        
+
       <form @submit.prevent="handleTaskRegister">
 
         <div class="form-group">
@@ -38,7 +38,7 @@
             </select>
         </div>
 
-  
+
         <div class="form-group">
             <label for="priority">Priorité</label>
             <select id="priority" v-model="priority" required>
@@ -50,19 +50,18 @@
                 </optgroup>
             </select>
         </div>
-        
+
         <button type="submit">Ajouter</button>
-  
+
         <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
       </form>
-  
-      <!-- Lien pour retourner à l'accueil -->
+
       <div class="back-to-home">
         <router-link to="/">Retour à l'accueil</router-link>
       </div>
     </div>
   </template>
-  
+
   <script>
   export default {
   data() {
@@ -71,19 +70,18 @@
       description: '',
       status: 'todo',
       priority: 'osef',
-      selectedDate: this.currentDate(),                  
+      selectedDate: this.currentDate(),
       errorMessage: ''
     };
   },
   methods: {
     currentDate() {
       const current = new Date();
-      const date = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;      
+      const date = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;
       return date;
     },
     async handleTaskRegister() {
       try {
-        // Appel à l'API avec `fetch`
         const response = await fetch('http://localhost:8000/api/tasks', {
           method: 'POST',
           headers: {
@@ -100,7 +98,6 @@
         });
 
         if (!response.ok) {
-          // Gestion des erreurs HTTP
           const errorData = await response.json();
           throw new Error(errorData['hydra:description'] || 'Une erreur est survenue.');
         }
@@ -108,10 +105,8 @@
         const data = await response.json();
         console.log('Utilisateur enregistré :', data);
 
-        // Redirige vers la page de login après l'inscription
         this.$router.push('/dashboard');
       } catch (error) {
-        // Gestion des erreurs liés à l'API
         this.errorMessage = error.message || 'Erreur lors de l’envoi des données.';
         console.error(error);
       }
