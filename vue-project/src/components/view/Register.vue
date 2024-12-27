@@ -1,7 +1,7 @@
 <template>
     <div class="container">
       <h1>Inscription</h1>
-        
+
       <form @submit.prevent="handleRegister">
 
         <div class="form-group">
@@ -36,7 +36,7 @@
             required
           />
         </div>
-  
+
         <div class="form-group">
           <label for="password">Mot de passe</label>
           <input
@@ -47,12 +47,12 @@
             required
           />
         </div>
-  
+
         <button type="submit">Soumettre</button>
-  
+
         <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
       </form>
-  
+
       <div class="back-to-home">
         <router-link to="/">Retour à l'accueil</router-link>
       </div>
@@ -75,7 +75,7 @@
     async handleRegister() {
       try {
         // Appel à l'API avec `fetch`
-        const response = await fetch('http://localhost:8000/api/users', {
+        const response = await fetch('http://127.0.0.1:8000/api/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/ld+json',
@@ -93,7 +93,7 @@
           const errorData = await response.json();
           throw new Error(errorData['hydra:description'] || 'Une erreur est survenue.');
         }
-        
+
         const data = await response.json();
         console.log('Utilisateur enregistré :', data);
 
