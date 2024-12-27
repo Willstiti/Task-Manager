@@ -4,32 +4,38 @@ import Login from '../view/Login.vue';
 import Register from '../view/Register.vue';
 import Dashboard from '../view/Dashboard.vue';
 import AddTask from '../view/AddTask.vue';
+import EditTask from '../view/EditTask.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'HomeVue',
+    name: 'Home',
     component: Home,
   },
   {
-    path: '/login',  // Nouvelle route pour la page de connexion
-    name: 'LoginVue',
+    path: '/login',  // Route pour la page de connexion
+    name: 'Login',
     component: Login,
   },
   {
     path: '/register',
-    name: 'Register', //Nouvelle route pour la page d'inscription
+    name: 'Register', // Route pour la page d'inscription
     component: Register,
   },
   {
-    path: '/dashboard',  // Nouvelle route pour le tableau de bord
-    name: 'DashboardVue',
+    path: '/dashboard',  // Route pour la page d'affichage
+    name: 'Dashboard',
     component: Dashboard,
   },
   {
-    path: '/addtask',  // Nouvelle route pour le tableau de bord
+    path: '/addtask',  // Route pour ajouter les tâches
     name: 'AddTask',
     component: AddTask,
+  },
+  {
+    path: '/edittask/:id',  // Route pour modifier les tâches
+    name: 'EditTask',
+    component : EditTask,
   },
 ];
 // Création du routeur

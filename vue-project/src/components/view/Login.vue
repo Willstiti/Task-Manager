@@ -38,7 +38,6 @@
 
 <script>
 export default {
-  name: 'LoginVue',
   data() {
     return {
       email: '',

@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
-import App from './App.vue';  // Le composant principal
-import router from './components/router/router.js'; // Le fichier router.js où la configuration des routes est définie
+import App from './App.vue';
+import router from './components/router/router.js';
 
 createApp(App)
   .use(router)  // Utilisation du routeur dans l'application
