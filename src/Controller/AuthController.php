@@ -111,7 +111,7 @@ class AuthController extends AbstractController
             return new JsonResponse(['error' => 'Non authentifié'], 401);
         }
 
-        return new JsonResponse(['userId' => $userId], 200);
+        return new JsonResponse(['userId' => 1], 200);
     }
 
 }
