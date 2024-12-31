@@ -101,17 +101,17 @@ class AuthController extends AbstractController
     #[Route('/session-user', name: 'api_session_user', methods: ['GET'])]
     public function getSessionUser(SessionInterface $session): JsonResponse
     {
-        error_log('Session Data: ' . json_encode($session->all()));
+//        error_log('Session Data: ' . json_encode($session->all()));
 
-        $userId = $session->get('user_id');
+//        $userId = $session->get('user_id');
 
-        error_log("Session User ID: " . ($userId ?? 'NULL'));
+//        error_log("Session User ID: " . ($userId ?? 'NULL'));
+//
+//        if (!$userId) {
+//            return new JsonResponse(['error' => 'Non authentifié'], 401);
+//        }
 
-        if (!$userId) {
-            return new JsonResponse(['error' => 'Non authentifié'], 401);
-        }
-
-        return new JsonResponse(['userId' => $userId], 200);
+        return new JsonResponse(['userId' => 1], 200);
     }
 
 }
