@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,11 +17,13 @@ class AuthController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
     private UserPasswordHasherInterface $passwordHasher;
+    private $requestStack;
 
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher)
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, RequestStack $requestStack)
     {
         $this->entityManager = $entityManager;
         $this->passwordHasher = $passwordHasher;
+        $this->requestStack = $requestStack;
     }
 
     #[Route('/register', name: 'api_register', methods: ['POST'])]
@@ -34,6 +38,7 @@ class AuthController extends AbstractController
 
         $existingUser = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
         if ($existingUser) {
+
             return new JsonResponse(['error' => 'Utilisateur déjà existant'], 400);
         }
 
@@ -70,16 +75,43 @@ class AuthController extends AbstractController
         }
 
         if ($this->passwordHasher->isPasswordValid($user, $password)) {
+            $session = $this->requestStack->getSession();
+            $session->set('user_id', $user->getId());
+
+            error_log('Session User ID: ' . $session->get('user_id'));
+            error_log('test_var: ' . $session->get('test_var'));
+
             return new JsonResponse(['message' => 'Connexion réussie !', 'userId' => $user->getId()], 200);
-        } else {
-            return new JsonResponse(['error' => 'Mauvais identifiants'], 401);
         }
 
+        else
+        {
+            return new JsonResponse(['error' => 'Mauvais identifiants'], 401);
+        }
     }
 
     #[Route('/logout', name: 'api_logout', methods: ['POST'])]
-    public function logout(): JsonResponse
+    public function logout(SessionInterface $session): JsonResponse
     {
+        $session->invalidate();
+
         return new JsonResponse(['message' => 'Déconnexion réussie']);
     }
+
+    #[Route('/session-user', name: 'api_session_user', methods: ['GET'])]
+    public function getSessionUser(SessionInterface $session): JsonResponse
+    {
+        error_log('Session Data: ' . json_encode($session->all()));
+
+        $userId = $session->get('user_id');
+
+        error_log("Session User ID: " . ($userId ?? 'NULL'));
+
+        if (!$userId) {
+            return new JsonResponse(['error' => 'Non authentifié'], 401);
+        }
+
+        return new JsonResponse(['userId' => 1], 200);
+    }
+
 }
