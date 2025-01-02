@@ -99,7 +99,7 @@ class AuthController extends AbstractController
     }
 
     #[Route('/session-user', name: 'api_session_user', methods: ['GET'])]
-    public function getSessionUser(SessionInterface $session): JsonResponse
+  public function getSessionUser(SessionInterface $session): JsonResponse
     {
 //        error_log('Session Data: ' . json_encode($session->all()));
 
